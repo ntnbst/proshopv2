@@ -1,11 +1,25 @@
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import products from '../../../products'
 import Rating from '../../components/molecules/Rating'
+import axios from 'axios'
 
 export default function ProductDetails() {
   const { id: productId } = useParams()
-  const product = products.find((prod) => prod._id === productId)
-  console.log(product)
+  // const product = products.find((prod) => prod._id === productId)
+  const [product, setProduct] = useState(null)
+
+  useEffect(() => {
+    async function fetchProduct() {
+      const { data } = await axios.get(`/api/product/${productId}`)
+      setProduct(data)
+    }
+    fetchProduct()
+  }, [productId])
+
+  if (!product) {
+    return 'loading...'
+  }
+
   return (
     <div>
       <Link to='/' className='px-4 py-2 bg-blue-400 rounded-sm text-white'>
