@@ -50,6 +50,14 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    price: {
+      type: Number,
+      required: true,
+    },
+    countInStock: {
+      type: Number,
+      requried: true,
+    },
     reviews: [reviewSchema],
     rating: {
       type: Number,
