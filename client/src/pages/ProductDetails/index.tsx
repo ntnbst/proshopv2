@@ -5,12 +5,11 @@ import axios from 'axios'
 
 export default function ProductDetails() {
   const { id: productId } = useParams()
-  // const product = products.find((prod) => prod._id === productId)
   const [product, setProduct] = useState(null)
 
   useEffect(() => {
     async function fetchProduct() {
-      const { data } = await axios.get(`/api/product/${productId}`)
+      const { data } = await axios.get(`/api/products/${productId}`)
       setProduct(data)
     }
     fetchProduct()
@@ -26,12 +25,16 @@ export default function ProductDetails() {
         Back
       </Link>
 
-      <main className='mt-8 grid md:grid-cols-3 sm:grid-cols-2 gap-4'>
+      <main className='mt-8 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6'>
         <img className='w-full h-auto' src={product?.image} alt='' />
         <div>
           <p className='text-3xl'>{product?.name}</p>
+          <hr className='my-4' />
           <Rating text={`${product?.numReviews} reviews`} rating={product?.rating} />
+          <hr className='my-4' />
           <p className='text-2xl'>${product?.price}</p>
+          <hr className='my-4' />
+          <p>{product?.description}</p>
         </div>
         <div className='border p-4 h-min'>
           <p>
